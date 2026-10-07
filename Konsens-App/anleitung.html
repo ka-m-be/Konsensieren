@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title data-t="anleitung.titel">So funktioniert Konsensieren im Raum</title>
+<link rel="stylesheet" href="app.css">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="symbol.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="symbol-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Konsensieren">
+</head>
+<body>
+<noscript><p class="meldung fehler">Diese Seite und die App brauchen JavaScript.</p></noscript>
+<header class="kopf">
+  <div class="innen kopf-zeile">
+    <div class="kopf-links">
+      <a class="marke" href="./#start" data-t="suite.name">Konsensieren</a>
+      <nav class="suite" aria-label="Wo abgestimmt wird" data-t-aria="suite.aria">
+        <a href="../" data-t="suite.online">Online</a>
+        <a class="aktiv" href="./#start" aria-current="true" data-t="suite.raum">Im Raum</a>
+      </nav>
+    </div>
+    <details class="menue">
+      <summary class="menue-knopf"><span class="stapel" aria-hidden="true"></span><span class="versteckt" data-t="nav.menue">Menü</span></summary>
+      <nav class="menue-liste" aria-label="Menü" data-t-aria="nav.menue">
+        <a href="anleitung.html" data-t="nav.anleitung">Anleitung</a>
+        <a href="karten.html" data-t="start.karten">Karten drucken</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="inhalt">
+<!-- Die Anleitung gibt es nur hier. Das Werkzeug verlinkt sie auf Start- und
+     Hilfeseite (Spezifikation des Werkzeugs, Abschnitt 19), und mit der App kommt
+     sie spaeter auch ohne Netz aufs Handy. -->
+<article class="schirm fliesstext">
+  <h1 data-t="anleitung.titel"></h1>
+  <p class="fuehrung" data-t="anleitung.fuehrung"></p>
+  <p class="knopfreihe">
+    <a class="knopf" href="./#start" data-t="anleitung.starten"></a>
+    <a class="knopf still" href="karten.html" data-t="start.karten"></a>
+  </p>
+
+  <h2 data-t="anleitung.h_was"></h2>
+  <p data-t="anleitung.was1"></p>
+  <p data-t="anleitung.was2"></p>
+
+  <h2 data-t="anleitung.h_wann"></h2>
+  <p data-t="anleitung.wann1"></p>
+  <p><a href="../" data-t="anleitung.zum_werkzeug"></a></p>
+  <p><a href="../index.php/artikel" data-t="anleitung.zum_artikel"></a></p>
+
+  <h2 data-t="anleitung.h_vorbereiten"></h2>
+  <ol>
+    <li data-t="anleitung.vorbereiten1"></li>
+    <li data-t="anleitung.vorbereiten2"></li>
+    <li data-t="anleitung.vorbereiten3"></li>
+  </ol>
+
+  <h2 data-t="anleitung.h_runde"></h2>
+  <ol>
+    <li data-t="anleitung.runde1"></li>
+    <li data-t="anleitung.runde2"></li>
+    <li data-t="anleitung.runde3"></li>
+    <li data-t="anleitung.runde4"></li>
+  </ol>
+
+  <h2 data-t="anleitung.h_erfassen"></h2>
+  <ul>
+    <li><strong data-t="art.vorschlag"></strong>: <span data-t="anleitung.erfassen_vorschlag"></span></li>
+    <li><strong data-t="art.wert"></strong>: <span data-t="anleitung.erfassen_wert"></span></li>
+    <li><strong data-t="art.person"></strong>: <span data-t="anleitung.erfassen_person"></span></li>
+  </ul>
+
+  <h2 data-t="anleitung.h_lesen"></h2>
+  <p data-t="anleitung.lesen1"></p>
+  <p data-t="anleitung.lesen2"></p>
+  <p data-t="anleitung.lesen3"></p>
+  <p data-t="anleitung.lesen4"></p>
+
+  <h2 data-t="anleitung.h_teilen"></h2>
+  <p data-t="anleitung.teilen1"></p>
+  <p data-t="anleitung.teilen2"></p>
+
+  <h2 data-t="anleitung.h_skala"></h2>
+  <p data-t="anleitung.skala1"></p>
+
+  <h2 data-t="anleitung.h_offen"></h2>
+  <p data-t="anleitung.offen1"></p>
+
+  <h2 data-t="anleitung.h_merken"></h2>
+  <p data-t="anleitung.merken1"></p>
+
+  <h2 data-t="anleitung.h_grenzen"></h2>
+  <p data-t="anleitung.grenzen1"></p>
+  <p data-t="anleitung.grenzen2"></p>
+</article>
+</main>
+
+<footer class="fuss">
+  <div class="innen">
+    <p><a href="../index.php/quelltext" data-t="fuss.quelltext">Quelltext</a> ·
+       <a href="impressum.html" data-t="fuss.impressum">Impressum</a> ·
+       <span id="fassung"></span></p>
+  </div>
+</footer>
+
+<script src="texte.js"></script>
+<script src="rahmen.js"></script>
+</body>
+</html>

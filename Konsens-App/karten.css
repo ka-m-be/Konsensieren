@@ -1,0 +1,47 @@
+/* Druckvorlage fuer die Karten 0 bis 5 (V8). Die Farben kommen aus app.css,
+   also aus der Skala des Werkzeugs: Karte k traegt die Farbe von 2k. Rahmen
+   und Schraffur sind SVG und kein Hintergrund, damit sie auch ohne die
+   Druckeinstellung "Hintergrundgrafiken" auf dem Blatt erscheinen. */
+
+.druckwahl { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.bildschirm { max-width: 40rem; margin: 0 auto; padding: 1rem; }
+.umschalter { border: 0; padding: 0; margin: 1rem 0; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.umschalter legend { font-weight: 600; float: left; margin-right: .6rem; padding: 0; }
+.umschalter label { cursor: pointer; border: 1px solid #c6d2dc; border-radius: 8px; padding: .5rem 1rem;
+                    background: #fff; min-height: 44px; display: inline-flex; align-items: center; }
+#druck-farbe:checked ~ .bildschirm label[for=druck-farbe],
+#druck-sw:checked ~ .bildschirm label[for=druck-sw] { border-color: var(--akzent); background: var(--akzent-hell);
+                                                       box-shadow: inset 0 0 0 1px var(--akzent); font-weight: 600; }
+#druck-farbe:focus-visible ~ .bildschirm label[for=druck-farbe],
+#druck-sw:focus-visible ~ .bildschirm label[for=druck-sw] { outline: 3px solid var(--akzent); outline-offset: 2px; }
+
+.blatt { display: grid; grid-template-columns: 1fr 1fr; max-width: 34rem; margin: 0 auto 2rem;
+         background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+.kartenbild { display: block; width: 100%; height: auto; }
+
+.rahmen.k0 { fill: var(--z0); }  .rahmen.k1 { fill: var(--z2); }  .rahmen.k2 { fill: var(--z4); }
+.rahmen.k3 { fill: var(--z6); }  .rahmen.k4 { fill: var(--z8); }  .rahmen.k5 { fill: var(--z10); }
+/* Schwarz-Weiss: Grau derselben Helligkeit (gleiche relative Leuchtdichte),
+   damit die Reihenfolge auf dem Kopierer dieselbe bleibt. */
+#druck-sw:checked ~ .blatt .rahmen.k0 { fill: #333333; }
+#druck-sw:checked ~ .blatt .rahmen.k1 { fill: #5d5d5d; }
+#druck-sw:checked ~ .blatt .rahmen.k2 { fill: #8d8d8d; }
+#druck-sw:checked ~ .blatt .rahmen.k3 { fill: #a6a6a6; }
+#druck-sw:checked ~ .blatt .rahmen.k4 { fill: #cecece; }
+#druck-sw:checked ~ .blatt .rahmen.k5 { fill: #f1f1f1; }
+.streifen { fill: #fff; fill-opacity: .32; }
+/* Die hellsten Rahmen wuerden sonst im Weiss verschwinden: eine feine Linie
+   innen, und aussen die Kontur, die zugleich Schnittlinie ist. */
+.innenlinie { fill: none; stroke: #1f2a33; stroke-width: .25; }
+.kontur { fill: none; stroke: #000; stroke-width: .3; }
+.ziffer { fill: #000; font: 760 58px system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+          text-anchor: middle; }
+
+@page { size: A4 portrait; margin: 10mm; }
+@media print {
+  body { background: #fff; margin: 0; }
+  .bildschirm, .kopf, .fuss { display: none; }
+  .blatt { width: 190mm; height: 276mm; max-width: none; margin: 0; box-shadow: none;
+           grid-template-columns: 95mm 95mm; grid-template-rows: 92mm 92mm 92mm; break-inside: avoid; }
+  .kartenbild { width: 95mm; height: 92mm; }
+}

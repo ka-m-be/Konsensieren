@@ -1,0 +1,9 @@
+# Die App ist eine statische Seite: Der Server liefert Dateien aus, mehr nicht.
+# Manche Hoster kennen als Startdatei nur index.php; ohne diese Zeile gaebe
+# das Verzeichnis dann einen Fehler statt der App.
+DirectoryIndex index.html
+
+# Manifest fuer den Home-Bildschirm; manche Apache kennen die Endung noch nicht.
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+</IfModule>

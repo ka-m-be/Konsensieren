@@ -1,0 +1,27 @@
+# Kennzeichen, dass diese Datei ueberhaupt ausgewertet wird. Die Anwendung
+# erzeugt schoene Adressen ohne index.php nur dann - sonst liefen sie ins Leere.
+<IfModule mod_env.c>
+  SetEnv SK_HTACCESS 1
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Dasselbe Kennzeichen noch einmal, falls mod_env fehlt.
+  RewriteRule ^ - [E=SK_HTACCESS:1]
+
+  # Kein RewriteBase: Es muesste in jedem Unterverzeichnis anders lauten, und
+  # ein falsches fuehrt genau dort zu 404. Ohne die Angabe setzt Apache den
+  # Verzeichnispfad selbst davor - im Wurzelverzeichnis wie im Unterverzeichnis.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php/$1 [L,QSA,E=SK_REWRITE:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set Referrer-Policy "no-referrer"
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Verzeichnislisten aus
+Options -Indexes

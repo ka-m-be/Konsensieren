@@ -1,0 +1,18 @@
+# Laufzeitdaten der Abstimmungen - gehoeren nie ins Repository
+/data/
+/_check_tmp/
+
+# Freischaltung des Umgebungs-Checks - gehoert nur auf den jeweiligen Server
+/check-freischalten.txt
+
+# Das ausgefuellte Impressum - die Vorlage ist Impressum.example.md, wie bei config.php
+/Impressum.md
+/Konsens-App/Impressum.md
+
+# Internals
+/Spec
+/Konsens-App/Spec
+/CLAUDE.md
+
+# macOS
+.DS_Store

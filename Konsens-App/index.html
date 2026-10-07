@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title data-t="app.name">Konsensieren im Raum</title>
+<link rel="stylesheet" href="app.css">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="symbol.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="symbol-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Konsensieren">
+</head>
+<body>
+<!-- Unter .../Konsens-App ohne Schraegstrich sucht der Browser Stil und Skripte eine
+     Ebene zu hoch, und die Seite bliebe leer. Apache leitet dann selbst um, der
+     eingebaute Server von PHP nicht. Selbst umleiten kann die Seite nicht: Dafuer braeuchte
+     sie ein Inline-Skript, und das verbietet die CSP. Also steht hier ein Hinweis, den
+     app.css versteckt, sobald es geladen ist. Der Link passt nur, solange das Verzeichnis
+     Konsens-App heisst. -->
+<p class="ohne-stil">Die App braucht den Schrägstrich am Ende der Adresse. <a href="Konsens-App/">Hier geht es zur App.</a></p>
+<noscript><p class="meldung fehler">Diese App braucht JavaScript. Schalte es ein, oder zählt mit Karten und Tafel.</p></noscript>
+
+<header class="kopf">
+  <div class="innen kopf-zeile">
+    <div class="kopf-links">
+      <a class="marke" href="./#start" data-t="suite.name">Konsensieren</a>
+      <nav class="suite" aria-label="Wo abgestimmt wird" data-t-aria="suite.aria">
+        <a href="../" data-t="suite.online">Online</a>
+        <a class="aktiv" href="./#start" aria-current="true" data-t="suite.raum">Im Raum</a>
+      </nav>
+    </div>
+    <details class="menue">
+      <summary class="menue-knopf"><span class="stapel" aria-hidden="true"></span><span class="versteckt" data-t="nav.menue">Menü</span></summary>
+      <nav class="menue-liste" aria-label="Menü" data-t-aria="nav.menue">
+        <a href="anleitung.html" data-t="nav.anleitung">Anleitung</a>
+        <a href="karten.html" data-t="start.karten">Karten drucken</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="inhalt">
+<p class="meldung wink" id="speicherwarnung" role="alert" hidden data-t="allgemein.kein_speicher"></p>
+
+<!-- ============================================================ Start -->
+<section class="schirm" id="start" hidden>
+  <h1 data-t="app.name"></h1>
+  <p class="fuehrung" data-t="start.fuehrung"></p>
+  <div class="knopfspalte">
+    <a class="knopf gross" href="#erfassen" id="start-fortsetzen" hidden data-t="start.fortsetzen"></a>
+    <a class="knopf gross" href="#ergebnis" id="start-ergebnis" hidden data-t="start.ergebnis"></a>
+    <a class="knopf gross" href="#neu" id="start-moderieren" data-t="start.moderieren"></a>
+    <a class="knopf gross still" href="#neu" id="start-neu" hidden data-t="start.neue_runde"></a>
+    <a class="knopf gross still" href="karten.html" data-t="start.karten"></a>
+  </div>
+  <div class="sitzung" id="start-sitzung" hidden>
+    <button type="button" class="knopf still klein" data-aktion="sitzung-beenden" data-t="start.sitzung_beenden"></button>
+    <p class="dazu" data-t="start.sitzung_beenden_dazu"></p>
+  </div>
+  <details class="hinweis">
+    <summary data-t="start.wie"></summary>
+    <ol class="schritte">
+      <li data-t="start.wie1"></li>
+      <li data-t="start.wie2"></li>
+      <li data-t="start.wie3"></li>
+    </ol>
+    <p><a href="anleitung.html" data-t="start.anleitung"></a></p>
+  </details>
+  <p class="dazu"><span data-t="start.online"></span> <a href="../" data-t="start.online_link"></a></p>
+</section>
+
+<!-- ======================================================= Neue Runde -->
+<section class="schirm" id="neu" hidden>
+  <h1 data-t="neu.titel"></h1>
+  <form id="neu-form" novalidate autocomplete="off">
+    <div class="feld">
+      <label for="neu-anwesende" data-t="neu.anwesende"></label>
+      <div class="stepper">
+        <button type="button" class="knopf still stufe" data-schritt="-1" data-fuer="neu-anwesende" data-t-aria="stepper.weniger">−</button>
+        <input id="neu-anwesende" name="anwesende" type="number" inputmode="numeric" min="1" max="99" required>
+        <button type="button" class="knopf still stufe" data-schritt="1" data-fuer="neu-anwesende" data-t-aria="stepper.mehr">+</button>
+      </div>
+      <p class="dazu" data-t="neu.anwesende_dazu"></p>
+      <p class="fehlertext" id="neu-fehler" role="alert" hidden data-t="neu.anwesende_fehlt"></p>
+    </div>
+    <fieldset class="wahl">
+      <legend data-t="neu.skala"></legend>
+      <label class="option"><input type="radio" name="skala" value="5"><span><strong data-t="neu.skala5"></strong> <span class="dazu" data-t="neu.skala5_dazu"></span></span></label>
+      <label class="option"><input type="radio" name="skala" value="10"><span><strong data-t="neu.skala10"></strong> <span class="dazu" data-t="neu.skala10_dazu"></span></span></label>
+    </fieldset>
+    <fieldset class="wahl">
+      <label class="option"><input type="checkbox" name="passiv"><span><strong data-t="neu.passiv"></strong> <span class="dazu" data-t="neu.passiv_dazu"></span></span></label>
+    </fieldset>
+    <fieldset class="wahl">
+      <legend data-t="neu.anzeige"></legend>
+      <label class="option"><input type="radio" name="anzeige" value="offen"><span><strong data-t="neu.offen"></strong> <span class="dazu" data-t="neu.offen_dazu"></span></span></label>
+      <label class="option"><input type="radio" name="anzeige" value="verdeckt"><span><strong data-t="neu.verdeckt"></strong> <span class="dazu" data-t="neu.verdeckt_dazu"></span></span></label>
+    </fieldset>
+    <p class="notiz" data-t="neu.einwaende"></p>
+    <div class="knopfreihe">
+      <button type="submit" class="knopf gross" data-t="neu.beginnen"></button>
+      <a class="knopf still" href="#start" data-t="allgemein.zurueck"></a>
+    </div>
+  </form>
+</section>
+
+<!-- ========================================================= Erfassen -->
+<section class="schirm" id="erfassen" hidden>
+  <div class="rundenkopf">
+    <p class="rundeninfo" id="rundeninfo"></p>
+    <div class="stepper klein">
+      <span data-t="erfassen.anwesende"></span>
+      <button type="button" class="knopf still stufe" data-schritt="-1" data-fuer="anwesende" data-t-aria="stepper.weniger">−</button>
+      <output id="anwesende-zahl" aria-live="polite"></output>
+      <button type="button" class="knopf still stufe" data-schritt="1" data-fuer="anwesende" data-t-aria="stepper.mehr">+</button>
+    </div>
+  </div>
+
+  <div class="arten" role="group" data-t-aria="erfassen.art">
+    <button type="button" class="art" data-art="vorschlag"><strong data-t="art.vorschlag"></strong><span data-t="art.vorschlag_dazu"></span></button>
+    <button type="button" class="art" data-art="wert"><strong data-t="art.wert"></strong><span data-t="art.wert_dazu"></span></button>
+    <button type="button" class="art" data-art="person"><strong data-t="art.person"></strong><span data-t="art.person_dazu"></span></button>
+  </div>
+
+  <div id="je-zeile">
+    <nav class="zeilenwahl" id="zeilenwahl" data-t-aria="erfassen.zeilen"></nav>
+    <div class="zeilenkopf">
+      <button type="button" class="knopf still pfeil" id="zeile-vorher" data-t-aria="erfassen.vorher_aria">◀</button>
+      <div>
+        <h1 id="zeile-name"></h1>
+        <p class="zaehler" id="zaehler" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div id="feld-vorschlag">
+      <p class="kette"><span data-t="erfassen.kette"></span>: <span id="kette"></span></p>
+      <div class="tastenfeld" id="tasten-vorschlag"></div>
+    </div>
+    <div id="feld-wert" hidden>
+      <p class="dazu" id="wert-hinweis"></p>
+      <div class="wertzaehler" id="wertzaehler"></div>
+    </div>
+    <div class="knopfreihe">
+      <button type="button" class="knopf still" id="rueckgaengig" data-t="erfassen.rueckgaengig"></button>
+      <button type="button" class="knopf" id="weiter"></button>
+    </div>
+  </div>
+
+  <div id="feld-person" hidden>
+    <p class="dazu" id="person-hinweis"></p>
+    <ol class="zettelliste" id="entwurf"></ol>
+    <div class="tastenfeld" id="tasten-person"></div>
+    <div class="knopfreihe">
+      <button type="button" class="knopf" id="zettel-fertig" data-t="erfassen.zettel_fertig"></button>
+      <button type="button" class="knopf still" id="zettel-verwerfen" data-t="erfassen.zettel_verwerfen"></button>
+    </div>
+    <p class="meldung" id="zettel-meldung" role="status" hidden></p>
+    <p class="zaehler" id="zettel-zahl"></p>
+    <ul class="erfasste" id="erfasste"></ul>
+    <button type="button" class="knopf still klein" id="zettel-zuruecknehmen" hidden data-t="erfassen.zettel_zuruecknehmen"></button>
+  </div>
+
+  <div class="knopfreihe unten">
+    <a class="knopf gross" href="#ergebnis" data-t="erfassen.ergebnis"></a>
+    <button type="button" class="knopf still klein" id="zeile-leeren" data-t="erfassen.zeile_leeren"></button>
+    <a class="knopf still klein" href="#start" data-t="allgemein.startseite"></a>
+  </div>
+</section>
+
+<!-- ========================================================= Ergebnis -->
+<section class="schirm breit" id="ergebnis" hidden>
+  <h1 data-t="ergebnis.titel"></h1>
+  <p class="thema" id="ergebnis-thema" hidden></p>
+  <div class="nur-druck" id="druck-kopf"></div>
+  <div id="lage-laeuft" hidden>
+    <p class="meldung wink" data-t="ergebnis.zwischenstand"></p>
+    <div class="knopfreihe">
+      <a class="knopf still" href="#erfassen" data-t="ergebnis.weiter_erfassen"></a>
+      <button type="button" class="knopf" id="abschliessen" data-t="ergebnis.abschliessen"></button>
+      <a class="knopf still" href="#teilen" data-t="ergebnis.teilen"></a>
+    </div>
+  </div>
+  <div id="lage-fertig" hidden>
+    <p class="meldung" id="abgeschlossen-text"></p>
+    <div class="knopfreihe">
+      <a class="knopf" href="#neu" data-t="start.neue_runde"></a>
+      <a class="knopf still" href="#teilen" data-t="ergebnis.teilen"></a>
+      <button type="button" class="knopf still" data-aktion="sitzung-beenden" data-t="start.sitzung_beenden"></button>
+    </div>
+  </div>
+  <p class="dazu" id="ergebnis-grundlage"></p>
+  <div id="ergebnis-meldungen"></div>
+  <ol class="tafel" id="tafel"></ol>
+  <div class="nur-druck druck-anhang" id="druck-anhang"></div>
+  <details class="hinweis">
+    <summary data-t="ergebnis.wie_lesen"></summary>
+    <p data-t="ergebnis.erklaerung1"></p>
+    <p data-t="ergebnis.erklaerung2"></p>
+    <p data-t="ergebnis.erklaerung_kik"></p>
+  </details>
+  <p class="nur-druck dazu" id="druck-fuss"></p>
+</section>
+
+<!-- =========================================================== Teilen -->
+<section class="schirm" id="teilen" hidden>
+  <h1 data-t="teilen.titel"></h1>
+  <p class="fuehrung" data-t="teilen.fuehrung"></p>
+  <fieldset class="wahl" id="teilen-stufen">
+    <legend data-t="teilen.was"></legend>
+    <label class="option"><input type="radio" name="stufe" value="a" checked><span><strong data-t="teilen.stufe_a"></strong> <span class="dazu" data-t="teilen.stufe_a_dazu"></span></span></label>
+    <label class="option"><input type="radio" name="stufe" value="b"><span><strong data-t="teilen.stufe_b"></strong> <span class="dazu" id="teilen-stufe-b-dazu"></span></span></label>
+    <label class="option"><input type="radio" name="stufe" value="c"><span><strong data-t="teilen.stufe_c"></strong> <span class="dazu" id="teilen-stufe-c-dazu"></span></span></label>
+  </fieldset>
+  <fieldset class="wahl" id="teilen-beschriftung">
+    <legend data-t="teilen.beschriftung"></legend>
+    <p class="dazu" data-t="teilen.beschriftung_dazu"></p>
+    <div class="feld">
+      <label for="teilen-thema" data-t="teilen.thema"></label>
+      <input id="teilen-thema" type="text" maxlength="80" autocomplete="off">
+    </div>
+    <div id="teilen-titel"></div>
+  </fieldset>
+  <div class="feld">
+    <label for="teilen-vorschau" data-t="teilen.vorschau"></label>
+    <textarea id="teilen-vorschau" readonly rows="16" spellcheck="false"></textarea>
+    <p class="dazu" data-t="teilen.vorschau_dazu"></p>
+  </div>
+  <p class="meldung wink" id="teilen-unsicher" hidden data-t="teilen.unsicher"></p>
+  <div class="knopfreihe">
+    <button type="button" class="knopf" id="teilen-blatt" hidden data-t="teilen.blatt"></button>
+    <button type="button" class="knopf" id="teilen-datei" data-t="teilen.datei"></button>
+    <button type="button" class="knopf still" id="teilen-kopieren" hidden data-t="teilen.kopieren"></button>
+    <button type="button" class="knopf still" id="teilen-drucken" data-t="teilen.drucken"></button>
+  </div>
+  <p class="dazu" data-t="teilen.drucken_dazu"></p>
+  <p class="meldung" id="teilen-meldung" role="status" hidden></p>
+  <div class="knopfreihe unten">
+    <a class="knopf still" href="#ergebnis" data-t="teilen.zurueck"></a>
+  </div>
+</section>
+</main>
+
+<footer class="fuss">
+  <div class="innen">
+    <p><a href="../index.php/quelltext" data-t="fuss.quelltext">Quelltext</a> ·
+       <a href="impressum.html" data-t="fuss.impressum">Impressum</a> ·
+       <span id="fassung"></span></p>
+  </div>
+</footer>
+
+<script src="texte.js"></script>
+<script src="zaehlwerk.js"></script>
+<script src="runde.js"></script>
+<script src="teilen.js"></script>
+<script src="rahmen.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+{
+  "_": "Gemeinsame Faelle fuer lib/Markdown.php und Konsens-App/markdown.js. Beide muessen aus md zeichengleich html machen; tools/test.php und tools/test.js pruefen das.",
+  "faelle": [
+    {
+      "name": "Überschriften in drei Stufen",
+      "md": "# A\n\n## B c\n\n### D ##",
+      "html": "<h1>A</h1>\n<h2>B c</h2>\n<h3>D</h3>"
+    },
+    {
+      "name": "Absätze: Zeilen werden zusammengefasst, Leerzeilen trennen",
+      "md": "Erste Zeile\n  zweite Zeile  \n\n\nNeuer Absatz",
+      "html": "<p>Erste Zeile\nzweite Zeile</p>\n<p>Neuer Absatz</p>"
+    },
+    {
+      "name": "Fett und kursiv auch über den Zeilenumbruch",
+      "md": "**fett\nweiter** und *kursiv\nweiter* und **„Zitat.“** Rest",
+      "html": "<p><strong>fett\nweiter</strong> und <em>kursiv\nweiter</em> und <strong>„Zitat.“</strong> Rest</p>"
+    },
+    {
+      "name": "Liste mit Folgezeilen, danach ein Absatz",
+      "md": "- eins\n  weiter\n- **zwei** und\n  [x](https://a.de/) u\n\nText",
+      "html": "<ul>\n<li>eins\nweiter</li>\n<li><strong>zwei</strong> und\n<a href=\"https://a.de/\">x</a> u</li>\n</ul>\n<p>Text</p>"
+    },
+    {
+      "name": "Nummerierte Liste, direkt nach einem Absatz",
+      "md": "Vorher\n1. a\n2. b\n10. c",
+      "html": "<p>Vorher</p>\n<ol>\n<li>a</li>\n<li>b</li>\n<li>c</li>\n</ol>"
+    },
+    {
+      "name": "Tabelle mit Ausrichtung und Auszeichnung in den Zellen",
+      "md": "| A | B | C |\n| --- | :---: | ---: |\n| 1 | **2** | 3 |\nx | y | z\n\nDanach",
+      "html": "<div class=\"tabellenrahmen\"><table>\n<thead>\n<tr><th>A</th><th class=\"mitte\">B</th><th class=\"rechts\">C</th></tr>\n</thead>\n<tbody>\n<tr><td>1</td><td class=\"mitte\"><strong>2</strong></td><td class=\"rechts\">3</td></tr>\n<tr><td>x</td><td class=\"mitte\">y</td><td class=\"rechts\">z</td></tr>\n</tbody>\n</table></div>\n<p>Danach</p>"
+    },
+    {
+      "name": "Links: http, mailto und relativ; & in der Adresse wird escaped",
+      "md": "[Text](https://example.org/?a=1&b=2) und [x](mailto:a@b.de) und [rel](../hilfe) und [Raute](#oben)",
+      "html": "<p><a href=\"https://example.org/?a=1&amp;b=2\">Text</a> und <a href=\"mailto:a@b.de\">x</a> und <a href=\"../hilfe\">rel</a> und <a href=\"#oben\">Raute</a></p>"
+    },
+    {
+      "name": "Gefährliche Adressen bleiben Text",
+      "md": "[x](javascript:alert(1)) [y](data:text/html,a) [z](JavaScript:x)",
+      "html": "<p>[x](javascript:alert(1)) [y](data:text/html,a) [z](JavaScript:x)</p>"
+    },
+    {
+      "name": "HTML wird escaped, auch Anführungszeichen",
+      "md": "<b>nicht fett</b> & Co, \"a\" 'b'",
+      "html": "<p>&lt;b&gt;nicht fett&lt;/b&gt; &amp; Co, &quot;a&quot; &#039;b&#039;</p>"
+    },
+    {
+      "name": "Code in der Zeile und als Block",
+      "md": "Ein `code * <mit> Stern` hier\n\n```\n<x> **y**\n  eingerückt\n```\nDanach",
+      "html": "<p>Ein <code>code * &lt;mit&gt; Stern</code> hier</p>\n<pre><code>&lt;x&gt; **y**\n  eingerückt</code></pre>\n<p>Danach</p>"
+    },
+    {
+      "name": "Kursiv und fett reichen über Code-Spannen hinweg",
+      "md": "*kursiv mit `code` drin* und **fett `x`** und `a` `b`",
+      "html": "<p><em>kursiv mit <code>code</code> drin</em> und <strong>fett <code>x</code></strong> und <code>a</code> <code>b</code></p>"
+    },
+    {
+      "name": "Zitat mit zwei Absätzen, dann eine Linie",
+      "md": "> Zitat\n> weiter\n>\n> zweiter\n\n---\n\n* * *",
+      "html": "<blockquote>\n<p>Zitat\nweiter</p>\n<p>zweiter</p>\n</blockquote>\n<hr>\n<hr>"
+    },
+    {
+      "name": "Einzelnes Sternchen, einzelner Backtick und Unterstriche bleiben stehen",
+      "md": "5 * 4 und ein ` Zeichen und ein_wort_mit_strichen",
+      "html": "<p>5 * 4 und ein ` Zeichen und ein_wort_mit_strichen</p>"
+    },
+    {
+      "name": "Überschrift beendet einen Absatz, Windows-Zeilenenden stören nicht",
+      "md": "Absatz\r\n## Titel\r\nWeiter",
+      "html": "<p>Absatz</p>\n<h2>Titel</h2>\n<p>Weiter</p>"
+    },
+    {
+      "name": "Leere Datei",
+      "md": "\n\n",
+      "html": ""
+    }
+  ]
+}

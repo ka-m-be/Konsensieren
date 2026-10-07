@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title data-t="karten.titel">Karten drucken</title>
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="karten.css">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="symbol.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="symbol-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Konsensieren">
+</head>
+<body>
+<header class="kopf">
+  <div class="innen kopf-zeile">
+    <div class="kopf-links">
+      <a class="marke" href="./#start" data-t="suite.name">Konsensieren</a>
+      <nav class="suite" aria-label="Wo abgestimmt wird" data-t-aria="suite.aria">
+        <a href="../" data-t="suite.online">Online</a>
+        <a class="aktiv" href="./#start" aria-current="true" data-t="suite.raum">Im Raum</a>
+      </nav>
+    </div>
+    <details class="menue">
+      <summary class="menue-knopf"><span class="stapel" aria-hidden="true"></span><span class="versteckt" data-t="nav.menue">Menü</span></summary>
+      <nav class="menue-liste" aria-label="Menü" data-t-aria="nav.menue">
+        <a href="anleitung.html" data-t="nav.anleitung">Anleitung</a>
+        <a href="karten.html" data-t="start.karten">Karten drucken</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<!-- Die beiden Knoepfe stehen vor Bildschirmtext und Blatt, damit das
+     Stylesheet mit ~ beide erreicht: Farbe oder Schwarz-Weiss ohne Skript. -->
+<input type="radio" name="druck" id="druck-farbe" class="druckwahl" checked>
+<input type="radio" name="druck" id="druck-sw" class="druckwahl">
+<div class="bildschirm">
+  <h1 data-t="karten.titel"></h1>
+  <p data-t="karten.fuehrung"></p>
+  <fieldset class="umschalter">
+    <legend data-t="karten.druck"></legend>
+    <label for="druck-farbe" data-t="karten.farbe"></label>
+    <label for="druck-sw" data-t="karten.sw"></label>
+  </fieldset>
+  <p><button type="button" class="knopf gross" id="drucken" data-t="karten.drucken"></button></p>
+  <p class="dazu" data-t="karten.tipp_druck"></p>
+  <p class="dazu" data-t="karten.tipp_rueckseite"></p>
+</div>
+<div class="blatt">
+  <svg class="kartenbild" data-wert="0" viewBox="0 0 95 92" role="img">
+    <path class="rahmen k0" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <defs><pattern id="schraffur0" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)"><rect class="streifen" width="1.6" height="4"/></pattern></defs>
+    <path fill="url(#schraffur0)" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <rect class="innenlinie" x="13" y="13" width="69" height="66"/>
+    <rect class="kontur" x="0.15" y="0.15" width="94.7" height="91.7"/>
+    <text class="ziffer" x="47.5" y="67">0</text>
+  </svg>
+  <svg class="kartenbild" data-wert="1" viewBox="0 0 95 92" role="img">
+    <path class="rahmen k1" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <defs><pattern id="schraffur1" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)"><rect class="streifen" width="1.6" height="4"/></pattern></defs>
+    <path fill="url(#schraffur1)" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <rect class="innenlinie" x="13" y="13" width="69" height="66"/>
+    <rect class="kontur" x="0.15" y="0.15" width="94.7" height="91.7"/>
+    <text class="ziffer" x="47.5" y="67">1</text>
+  </svg>
+  <svg class="kartenbild" data-wert="2" viewBox="0 0 95 92" role="img">
+    <path class="rahmen k2" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <rect class="innenlinie" x="13" y="13" width="69" height="66"/>
+    <rect class="kontur" x="0.15" y="0.15" width="94.7" height="91.7"/>
+    <text class="ziffer" x="47.5" y="67">2</text>
+  </svg>
+  <svg class="kartenbild" data-wert="3" viewBox="0 0 95 92" role="img">
+    <path class="rahmen k3" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <rect class="innenlinie" x="13" y="13" width="69" height="66"/>
+    <rect class="kontur" x="0.15" y="0.15" width="94.7" height="91.7"/>
+    <text class="ziffer" x="47.5" y="67">3</text>
+  </svg>
+  <svg class="kartenbild" data-wert="4" viewBox="0 0 95 92" role="img">
+    <path class="rahmen k4" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <rect class="innenlinie" x="13" y="13" width="69" height="66"/>
+    <rect class="kontur" x="0.15" y="0.15" width="94.7" height="91.7"/>
+    <text class="ziffer" x="47.5" y="67">4</text>
+  </svg>
+  <svg class="kartenbild" data-wert="5" viewBox="0 0 95 92" role="img">
+    <path class="rahmen k5" fill-rule="evenodd" d="M0 0H95V92H0Z M13 13V79H82V13Z"/>
+    <rect class="innenlinie" x="13" y="13" width="69" height="66"/>
+    <rect class="kontur" x="0.15" y="0.15" width="94.7" height="91.7"/>
+    <text class="ziffer" x="47.5" y="67">5</text>
+  </svg>
+</div>
+<footer class="fuss">
+  <div class="innen">
+    <p><a href="../index.php/quelltext" data-t="fuss.quelltext">Quelltext</a> ·
+       <a href="impressum.html" data-t="fuss.impressum">Impressum</a> ·
+       <span id="fassung"></span></p>
+  </div>
+</footer>
+<script src="texte.js"></script>
+<script src="rahmen.js"></script>
+<script src="karten.js"></script>
+</body>
+</html>

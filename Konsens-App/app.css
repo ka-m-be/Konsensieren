@@ -1,0 +1,373 @@
+/* Konsens-App - ein Stylesheet, keine Abhaengigkeiten. Farben und Wortwahl wie
+   im Werkzeug (assets/app.css), damit beides wie eines aussieht. */
+
+:root {
+  --papier: #fbfaf7;
+  --karte: #ffffff;
+  --tinte: #1f2a33;
+  --leise: #5d6b78;
+  --linie: #dfe6ec;
+  --akzent: #1d6a96;
+  --akzent-hell: #eaf3f9;
+  --achtung: #8a5a00;
+  --achtung-hell: #fdf4e3;
+  --gefahr: #a3252b;
+  --gefahr-hell: #fbecec;
+  --radius: 10px;
+
+  /* Zustimmungsskala 0-10, wortgleich mit dem Werkzeug; tools/test.js prueft
+     das. Die Helligkeit steigt gleichmaessig, die Farbe traegt die Information
+     nie allein, und kein Rot und kein Gruen. */
+  --z10: #e9f2f8; --z9:  #cfe3f0; --z8:  #b3d2e6; --z7:  #95c0dc; --z6:  #7aacd0;
+  --z5:  #9c9a94; --z4:  #c07f3d; --z3:  #a4652c; --z2:  #874f22; --z1:  #6b3c19;
+  --z0:  #4f2a10;
+  --auf-hell: #21262b;
+  --auf-dunkel: #ffffff;
+  --schraffur: repeating-linear-gradient(135deg, rgba(255,255,255,.16) 0 3px, transparent 3px 7px);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--papier); color: var(--tinte);
+  font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+[hidden] { display: none !important; }
+/* Steht nur da, wenn dieses Stylesheet nicht geladen wurde, meist weil der
+   Schraegstrich am Ende der Adresse fehlt (siehe index.html). */
+.ohne-stil { display: none; }
+
+.innen { max-width: 54rem; margin: 0 auto; padding: 0 1rem; }
+
+/* --- Suite: Dieser Block steht wortgleich in assets/app.css und in
+   Konsens-App/app.css; Konsens-App/tools/test.js prueft das. Werkzeug und App
+   sollen wie eines aussehen, und die Kopfzeile ist das Erste, was man sieht. --- */
+.kopf { background: var(--karte); border-bottom: 1px solid var(--linie); }
+.kopf-zeile { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+              gap: .5rem 1rem; padding-top: .7rem; padding-bottom: .7rem; }
+.kopf-links { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1rem; }
+.marke { font-weight: 650; font-size: 1.05rem; color: var(--tinte); text-decoration: none; letter-spacing: .01em; }
+/* Das Menue rechts in der Kopfzeile: ein details-Element, das ohne JavaScript
+   mit dem Stapel-Knopf auf- und zugeht (Spezifikation 19). Der Knopf ist ein
+   Block statt einer Flexbox, weil aeltere Safari summary nicht als Flexbox
+   zeichnen; die Liste liegt ueber dem Inhalt, rechts buendig unter dem Knopf. */
+.menue { position: relative; margin-left: auto; }
+.menue-knopf { display: block; position: relative; width: 44px; height: 44px; cursor: pointer;
+               list-style: none; color: var(--tinte); background: var(--papier);
+               border: 1px solid var(--linie); border-radius: 8px; }
+.menue-knopf::-webkit-details-marker { display: none; }
+.menue-knopf:hover { border-color: var(--leise); }
+.menue[open] .menue-knopf { color: var(--akzent); background: var(--akzent-hell); border-color: var(--akzent); }
+.stapel, .stapel::before, .stapel::after { display: block; width: 18px; height: 2px; border-radius: 1px; background: currentColor; }
+.stapel { position: absolute; left: 50%; top: 50%; margin: -1px 0 0 -9px; }
+.stapel::before, .stapel::after { content: ""; position: absolute; left: 0; }
+.stapel::before { top: -6px; }
+.stapel::after { top: 6px; }
+/* Rechts verankert, ist die Liste nur so breit wie ihr min-width: Das Menue selbst
+   ist nur der Knopf. 17.5rem reichen fuer die Sprachwahl in einer Zeile. */
+.menue-liste { position: absolute; right: 0; top: calc(100% + .4rem); z-index: 30; min-width: 17.5rem;
+               max-width: calc(100vw - 2rem); padding: .35rem; background: var(--karte);
+               border: 1px solid var(--linie); border-radius: var(--radius);
+               box-shadow: 0 8px 24px rgba(31, 42, 51, .14); }
+.menue-liste a { display: flex; align-items: center; min-height: 44px; padding: .4rem .75rem; border-radius: 6px;
+                 color: var(--tinte); text-decoration: none; font-size: .95rem; }
+.menue-liste a:hover { background: var(--akzent-hell); }
+.menue-liste a[aria-current] { font-weight: 650; color: var(--akzent); }
+/* Online und Im Raum sind zwei Wege derselben Methode; der Umschalter zeigt,
+   auf welchem man gerade ist, und fuehrt auf den anderen. */
+.suite { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--linie);
+         border-radius: 999px; background: var(--papier); }
+.suite a { display: inline-flex; align-items: center; min-height: 32px; padding: 0 .75rem;
+           border-radius: 999px; color: var(--leise); text-decoration: none;
+           font-size: .86rem; font-weight: 600; white-space: nowrap; }
+.suite a:hover { color: var(--tinte); }
+.suite a.aktiv { background: var(--akzent); color: #fff; }
+@media (pointer: coarse) { .suite a { min-height: 40px; } }
+/* --- Ende Suite --- */
+main { padding: 1rem max(1rem, env(safe-area-inset-left)) 3rem; }
+.schirm { max-width: 40rem; margin: 0 auto; }
+.schirm.breit { max-width: 60rem; }
+
+h1 { font-size: 1.5rem; line-height: 1.25; margin: .4rem 0 .6rem; }
+p { margin: .5rem 0; }
+a { color: var(--akzent); }
+.fuehrung { color: var(--leise); font-size: 1.05rem; }
+.dazu { color: var(--leise); font-size: .88rem; }
+/* Wie im Werkzeug: Fusszeile mit Anleitung, Quelltext und Fassung. */
+.fuss { border-top: 1px solid var(--linie); background: var(--karte); padding: 1.2rem 0;
+        color: var(--leise); font-size: .88rem; }
+h2 { font-size: 1.22rem; margin: 2rem 0 .7rem; }
+.fliesstext li { margin: .4rem 0; }
+/* Das Impressum aus Impressum.md, gerendert von markdown.js; Klassen wie im
+   Werkzeug (assets/app.css, Block "Markdown"). */
+.markdown h3 { font-size: 1.05rem; margin: 1.4rem 0 .4rem; }
+.markdown hr { border: 0; border-top: 1px solid var(--linie); margin: 1.6rem 0; }
+.markdown blockquote { margin: 1rem 0; padding: .2rem 1rem; border-left: 3px solid var(--linie); color: var(--leise); }
+.markdown code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+.markdown pre { background: var(--karte); border: 1px solid var(--linie); border-radius: 8px;
+                padding: .8rem 1rem; overflow-x: auto; font-size: .88rem; }
+.tabellenrahmen { overflow-x: auto; margin: 1rem 0; }
+.markdown table { border-collapse: collapse; width: 100%; background: var(--karte); font-size: .92rem; }
+.markdown th, .markdown td { text-align: left; padding: .4rem .7rem; border-bottom: 1px solid var(--linie); vertical-align: top; }
+.markdown th { font-size: .85rem; color: var(--leise); }
+.markdown .mitte { text-align: center; }
+.markdown .rechts { text-align: right; }
+.notiz { background: var(--achtung-hell); border-radius: 8px; padding: .6rem .8rem; font-size: .92rem; }
+.meldung { background: var(--akzent-hell); border: 1px solid #c8e0ef; border-radius: 8px;
+           padding: .6rem .9rem; margin: .6rem 0; }
+.meldung.wink { background: var(--achtung-hell); border-color: #ecd9b0; color: var(--achtung); }
+.meldung.fehler { background: var(--gefahr-hell); border-color: #edc9c9; color: var(--gefahr); }
+.fehlertext { color: var(--gefahr); font-weight: 600; font-size: .92rem; }
+
+/* ------------------------------------------------------------ Knoepfe */
+
+.knopf { display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+         font: inherit; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center;
+         background: var(--akzent); color: #fff; border: 1px solid var(--akzent);
+         border-radius: 8px; padding: .55rem 1rem; min-height: 48px; }
+.knopf:active { transform: translateY(1px); }
+.knopf.gross { font-size: 1.08rem; padding: .75rem 1.3rem; min-height: 56px; }
+.knopf.klein { font-size: .88rem; padding: .35rem .7rem; min-height: 40px; font-weight: 500; }
+.knopf.still { background: #fff; color: var(--tinte); border-color: #c6d2dc; }
+.knopfreihe { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: .8rem 0; }
+.knopfreihe.unten { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid var(--linie); }
+.knopfspalte { display: flex; flex-direction: column; gap: .7rem; margin: 1.2rem 0; }
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--akzent); outline-offset: 2px;
+}
+
+.hinweis { margin: 1.4rem 0; border-left: 3px solid var(--linie); padding-left: .9rem; }
+.hinweis > summary { cursor: pointer; color: var(--akzent); padding: .3rem 0; }
+.hinweis p, .schritte { color: var(--leise); font-size: .93rem; }
+.schritte { padding-left: 1.2rem; }
+.schritte li { margin: .4rem 0; }
+.sitzung { margin: 1rem 0; }
+
+/* ----------------------------------------------------------- Formular */
+
+.feld { margin: 1rem 0; }
+.feld > label { display: block; font-weight: 600; margin-bottom: .35rem; }
+.stepper { display: flex; align-items: center; gap: .4rem; }
+.stepper input { font: inherit; font-size: 1.5rem; font-weight: 650; text-align: center;
+                 width: 5rem; height: 56px; border: 1px solid #c6d2dc; border-radius: 8px;
+                 font-variant-numeric: tabular-nums; -moz-appearance: textfield; appearance: textfield; }
+.stepper input::-webkit-inner-spin-button, .stepper input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.stepper .stufe { width: 56px; font-size: 1.5rem; padding: 0; }
+.stepper.klein { font-size: .9rem; color: var(--leise); }
+.stepper.klein .stufe { width: 44px; min-height: 44px; font-size: 1.2rem; }
+.stepper output { min-width: 2ch; text-align: center; font-weight: 650; font-size: 1.15rem;
+                  color: var(--tinte); font-variant-numeric: tabular-nums; }
+
+.wahl { border: 0; margin: 1rem 0; padding: 0; }
+.wahl legend { font-weight: 600; padding: 0; margin-bottom: .35rem; }
+.option { display: flex; gap: .7rem; align-items: flex-start; padding: .7rem .8rem; margin: .4rem 0;
+          background: var(--karte); border: 1px solid var(--linie); border-radius: var(--radius); cursor: pointer; }
+.option input { width: 1.3rem; height: 1.3rem; margin: .15rem 0 0; flex: none; accent-color: var(--akzent); }
+.option .dazu { display: block; }
+.option:has(input:checked) { border-color: var(--akzent); background: var(--akzent-hell); }
+/* Eine Stufe, die diese Runde nicht hergibt (Spec/02, 5): sichtbar, aber aus,
+   und der Grund steht darunter. */
+.option.aus { opacity: .55; }
+.option.aus input { cursor: not-allowed; }
+
+/* ----------------------------------------------------------- Erfassen */
+
+.rundenkopf { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .3rem 1rem; }
+.rundeninfo { color: var(--leise); font-size: .9rem; margin: 0; }
+
+.arten { display: grid; grid-template-columns: repeat(3, 1fr); gap: .4rem; margin: .7rem 0; }
+.art { font: inherit; cursor: pointer; background: #fff; color: var(--tinte); border: 1px solid #c6d2dc;
+       border-radius: 8px; padding: .45rem .3rem; min-height: 52px; display: flex; flex-direction: column;
+       align-items: center; justify-content: center; line-height: 1.2; }
+.art span { font-size: .75rem; color: var(--leise); }
+.art[aria-pressed="true"] { border-color: var(--akzent); background: var(--akzent-hell); box-shadow: inset 0 0 0 1px var(--akzent); }
+
+.zeilenwahl { display: flex; gap: .35rem; overflow-x: auto; padding: .2rem 0 .5rem; scrollbar-width: thin; }
+.chip { font: inherit; cursor: pointer; flex: none; min-width: 3.1rem; min-height: 44px; padding: .2rem .5rem;
+        background: #fff; border: 1px solid #c6d2dc; border-radius: 8px; color: var(--tinte);
+        display: flex; flex-direction: column; align-items: center; line-height: 1.15; }
+.chip b { font-size: 1.05rem; }
+.chip small { font-size: .72rem; color: var(--leise); font-variant-numeric: tabular-nums; }
+.chip.aktuell { border-color: var(--tinte); box-shadow: inset 0 0 0 1px var(--tinte); }
+.chip.voll small::after { content: " ✓"; }
+.chip.zuviel small { color: var(--achtung); font-weight: 700; }
+
+.zeilenkopf { display: flex; align-items: center; gap: .8rem; margin: .3rem 0 .4rem; }
+.zeilenkopf h1 { font-size: 1.9rem; margin: 0; }
+.pfeil { width: 48px; padding: 0; flex: none; }
+.zaehler { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.zaehler.zuviel { color: var(--achtung); }
+.kette { color: var(--leise); font-size: .95rem; margin: .3rem 0 .6rem; overflow-wrap: anywhere;
+         font-variant-numeric: tabular-nums; min-height: 1.5em; }
+.kette b { color: var(--tinte); letter-spacing: .12em; }
+
+/* Tasten sehen aus wie die Karten: Ziffer schwarz auf Weiss, die Farbe der
+   Skala im Rahmen. Wer Karten sieht, findet so die Taste mit einem Blick. */
+.tastenfeld { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.tastenfeld.s10 { grid-template-columns: repeat(4, 1fr); }
+.taste { font: inherit; cursor: pointer; border: 0; border-radius: 10px; padding: 7px; min-height: 72px;
+         background-color: var(--z5); display: flex; touch-action: manipulation; }
+.tastenfeld.s10 .taste { min-height: 60px; padding: 6px; }
+.taste .ziffer { flex: 1; display: flex; align-items: center; justify-content: center; background: #fff;
+                 color: #000; border-radius: 5px; font-size: 1.9rem; font-weight: 750;
+                 font-variant-numeric: tabular-nums; }
+.taste:active { transform: scale(.97); }
+.taste.enthaltung { background: #fff; border: 2px dashed #9aa7b2; grid-column: 1 / -1; min-height: 52px; }
+.tastenfeld.s10 .taste.enthaltung { grid-column: auto; }
+.taste.enthaltung .ziffer { font-size: 1rem; font-weight: 600; color: var(--leise); }
+.tastenfeld.s10 .taste.enthaltung .ziffer { font-size: .8rem; }
+.z0 { background-color: var(--z0); } .z1 { background-color: var(--z1); } .z2 { background-color: var(--z2); }
+.z3 { background-color: var(--z3); } .z4 { background-color: var(--z4); } .z5 { background-color: var(--z5); }
+.z6 { background-color: var(--z6); } .z7 { background-color: var(--z7); } .z8 { background-color: var(--z8); }
+.z9 { background-color: var(--z9); } .z10 { background-color: var(--z10); }
+/* Werte bis 2 zusaetzlich schraffiert, wie im Werkzeug. */
+.z0, .z1, .z2 { background-image: var(--schraffur); }
+.taste.z10, .taste.z9 { box-shadow: inset 0 0 0 1px #9aa7b2; }
+
+.wertzaehler { display: flex; flex-direction: column; gap: .4rem; }
+.wertzeile { display: grid; grid-template-columns: 2.6rem 1fr auto; align-items: center; gap: .6rem;
+             background: var(--karte); border: 1px solid var(--linie); border-radius: 8px; padding: .3rem .5rem; }
+.muster { width: 2.6rem; height: 2.6rem; border-radius: 6px; padding: 4px; display: flex; }
+.muster span { flex: 1; background: #fff; color: #000; border-radius: 3px; display: flex; align-items: center;
+               justify-content: center; font-weight: 750; font-size: 1.1rem; }
+.wertzeile input { width: 4rem; height: 48px; font-size: 1.3rem; }
+
+.zettelliste { list-style: none; margin: .5rem 0; padding: 0; display: grid;
+               grid-template-columns: repeat(auto-fill, minmax(4.2rem, 1fr)); gap: .35rem; }
+.zettelliste button { font: inherit; cursor: pointer; width: 100%; min-height: 52px; border: 1px solid #c6d2dc;
+                      border-radius: 8px; background: #fff; color: var(--tinte); display: flex;
+                      flex-direction: column; align-items: center; justify-content: center; line-height: 1.15; }
+.zettelliste small { font-size: .72rem; color: var(--leise); }
+.zettelliste b { font-size: 1.2rem; min-height: 1.4rem; font-variant-numeric: tabular-nums; }
+.zettelliste .aktuell button { border-color: var(--tinte); box-shadow: inset 0 0 0 2px var(--tinte); }
+.erfasste { list-style: none; padding: 0; margin: .4rem 0; font-size: .9rem; }
+.erfasste li { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: .3rem 0;
+               border-top: 1px solid var(--linie); font-variant-numeric: tabular-nums; }
+.erfasste code { font-weight: 700; }
+
+/* Nur fuer Vorleseprogramme, wie .versteckt im Werkzeug. */
+.versteckt { position: absolute; width: 1px; height: 1px; overflow: hidden;
+             clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
+/* --------------------------------------------------------- Tafelansicht */
+
+/* Zum Abschreiben an die Tafel: grosse Zahlen, hoher Kontrast, eine Zeile je
+   Vorschlag. Die Nummer ist der Name; die Titel stehen an der Tafel. Eine
+   Platzziffer gibt es nicht, die Reihenfolge ist die Rangfolge (0.1.4). */
+.tafel { list-style: none; margin: 1rem 0; padding: 0; }
+.tafelzeile { display: grid; grid-template-columns: auto 1fr; gap: .2rem .9rem; align-items: start;
+              background: var(--karte); border: 1px solid var(--linie); border-radius: var(--radius);
+              padding: .8rem .9rem; margin: .6rem 0; }
+.tafelzeile.sieger { border: 3px solid var(--akzent); }
+.tafelzeile.unsicher { border-style: dashed; background: #fcfbf8; }
+.tafelzeile.passiv { background: #f7f4ec; }
+/* Die Nummer ohne Kreis, darueber sehr klein "Vorschlag". */
+.tafelzeile .nummer { min-width: 3rem; display: flex; flex-direction: column; align-items: center; }
+.tafelzeile .nummer small { font-size: .65rem; line-height: 1.2; color: var(--leise); }
+.tafelzeile .nummer b { font-size: 1.9rem; font-weight: 750; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.tafelzeile .haupt { min-width: 0; }
+.kopfzeile { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; }
+.schnitt { display: inline-flex; align-items: baseline; gap: .35rem; padding: .1rem .6rem; border-radius: 8px;
+           color: var(--auf-hell); font-size: .9rem; }
+.schnitt strong { font-size: 2rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.schnitt.z0, .schnitt.z1, .schnitt.z2, .schnitt.z3 { color: var(--auf-dunkel); }
+.etikett { display: inline-block; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+           padding: .15rem .45rem; border-radius: 5px; background: #eef2f6; color: var(--leise); }
+.etikett.sieger { background: var(--akzent); color: #fff; }
+.etikett.passiv { background: #ebe4d3; color: #5e5037; }
+.etikett.wink { background: var(--achtung-hell); color: var(--achtung); }
+.kennzahlen { display: flex; flex-wrap: wrap; gap: .2rem 1rem; margin: .4rem 0 .2rem; font-size: .95rem; }
+.kennzahlen .wink { color: var(--achtung); font-weight: 600; }
+
+/* --- Verteilung: Dieser Block steht wortgleich in assets/app.css und in
+   Konsens-App/app.css; Konsens-App/tools/test.js prueft das. Ueber jedem Balken
+   steht, wie viele diesen Wert gegeben haben, darunter der Wert. Die Balken
+   stehen auf einer Grundlinie statt in einem grauen Kasten und haben eine
+   Kontur: Vorher verschwanden die hellsten Stufen fast im Grund. --- */
+.verteilung-summe { margin: .6rem 0 .15rem; font-size: .8rem; color: var(--leise); }
+.verteilung { display: flex; align-items: flex-end; gap: 3px; max-width: 26rem; margin: 0 0 .5rem; }
+.verteilung .balken { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column;
+                      justify-content: flex-end; background: none; }
+.verteilung .balken b { font-size: .75rem; font-weight: 650; line-height: 1.3; text-align: center;
+                        font-variant-numeric: tabular-nums; color: var(--tinte); }
+.verteilung .balken.h0 b { font-weight: 400; color: var(--leise); }
+.verteilung .balken i { display: block; height: 0; border: 1px solid rgba(31, 42, 51, .55);
+                        border-bottom: 0; border-radius: 3px 3px 0 0; background-color: #fff; }
+.verteilung .balken small { border-top: 1px solid var(--leise); padding-top: 1px; font-size: .7rem;
+                            line-height: 1.3; text-align: center; color: var(--leise);
+                            font-variant-numeric: tabular-nums; }
+.verteilung .h0 i { border: 0; }
+.verteilung .h1 i { height: .3rem; }  .verteilung .h2 i { height: .6rem; }  .verteilung .h3 i { height: .9rem; }
+.verteilung .h4 i { height: 1.2rem; } .verteilung .h5 i { height: 1.5rem; } .verteilung .h6 i { height: 1.8rem; }
+.verteilung .h7 i { height: 2.1rem; } .verteilung .h8 i { height: 2.4rem; } .verteilung .h9 i { height: 2.7rem; }
+.verteilung .h10 i { height: 3rem; }
+.verteilung .z0 i { background-color: var(--z0); }  .verteilung .z1 i { background-color: var(--z1); }
+.verteilung .z2 i { background-color: var(--z2); }  .verteilung .z3 i { background-color: var(--z3); }
+.verteilung .z4 i { background-color: var(--z4); }  .verteilung .z5 i { background-color: var(--z5); }
+.verteilung .z6 i { background-color: var(--z6); }  .verteilung .z7 i { background-color: var(--z7); }
+.verteilung .z8 i { background-color: var(--z8); }  .verteilung .z9 i { background-color: var(--z9); }
+.verteilung .z10 i { background-color: var(--z10); }
+/* Werte bis 2 zusaetzlich schraffiert, wie auf der Skala. */
+.verteilung .z0 i, .verteilung .z1 i, .verteilung .z2 i {
+  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.16) 0 3px, transparent 3px 7px);
+}
+/* --- Ende Verteilung --- */
+
+/* ------------------------------------------------------------ Pruefseite */
+
+.pruefliste { padding-left: 1.4rem; }
+.pruefliste li { margin: .4rem 0; }
+.pruefliste .falsch { color: var(--gefahr); font-weight: 600; }
+.pruefliste p { font-weight: 400; font-size: .85rem; margin: .2rem 0; overflow-wrap: anywhere; }
+
+@media (orientation: landscape) and (min-width: 44rem) {
+  .tafel { display: grid; grid-template-columns: 1fr 1fr; gap: 0 .8rem; }
+}
+@media (max-width: 22rem) {
+  .tafelzeile .nummer { min-width: 2.6rem; }
+  .tafelzeile .nummer b { font-size: 1.5rem; }
+}
+@media (prefers-contrast: more) {
+  :root { --linie: #8a97a3; --leise: #3c4750; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+/* ------------------------------------------------------------- Teilen */
+
+#teilen input[type=text], #teilen textarea {
+  font: inherit; color: inherit; background: #fff; width: 100%;
+  border: 1px solid #c6d2dc; border-radius: 8px; padding: .55rem .7rem;
+}
+/* Der Text so, wie er hinausgeht: feste Schrift, keine Umbrueche, rollbar. */
+#teilen textarea { font: .84rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+                   white-space: pre; overflow: auto; resize: vertical; }
+#teilen-titel .feld { margin: .6rem 0; }
+#teilen-titel label { font-weight: 500; font-size: .92rem; }
+/* Beschriftung in der Tafelansicht: das Thema ueber der Tafel, der Titel in
+   der Zeile ueber dem Schnitt. */
+.thema { font-weight: 650; font-size: 1.05rem; margin: .2rem 0 .4rem; }
+.tafelzeile .titel { margin: 0 0 .15rem; font-weight: 650; }
+/* Kopf, Anhang und Fuss des Drucks gibt es nur auf Papier. */
+.nur-druck { display: none; }
+
+@media print {
+  .kopf, .fuss, .knopfreihe, .hinweis, #lage-laeuft, #lage-fertig, #speicherwarnung { display: none !important; }
+  body { background: #fff; }
+  /* Die Balken tragen ihre Farbe im Hintergrund; ohne diese Angabe druckt der
+     Browser sie weiss. Und eine Zeile soll nicht ueber den Seitenumbruch brechen. */
+  .balken i { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tafelzeile { break-inside: avoid; }
+  .nur-druck { display: block; }
+  #druck-kopf { color: var(--leise); font-size: .9rem; margin: 0 0 .6rem; }
+  #druck-kopf p { margin: .1rem 0; }
+  /* Auf Papier braucht es kraeftigere Linien als auf dem Schirm: die Karten der
+     Tafel und die Tabelle der Einzelwerte. */
+  .tafelzeile { border-color: #9aa5ae; }
+  .einzelwerte { border-collapse: collapse; margin: .6rem 0 1rem; font-size: .92rem; }
+  .einzelwerte th, .einzelwerte td { border: 1px solid #9aa5ae; padding: .2rem .55rem; text-align: center;
+                                     font-variant-numeric: tabular-nums; }
+  .einzelwerte thead th { background: #eef1f4; }
+  .einzelwerte tbody th { text-align: left; font-weight: 500; }
+  .einzelwerte tr.zettel th { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+}

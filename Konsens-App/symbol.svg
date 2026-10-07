@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Symbol der App: eine Karte vor dem Blau des Werkzeugs, darunter die Farben
+       der Karten 0 bis 5. Alles liegt im inneren Kreis, den Android beim
+       Zuschneiden stehen laesst; so taugt dasselbe Bild auch als maskable. -->
+  <rect width="512" height="512" fill="#1d6a96"/>
+  <rect x="156" y="96" width="200" height="252" rx="22" fill="#ffffff"/>
+  <text x="256" y="292" text-anchor="middle" font-family="system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
+        font-size="190" font-weight="800" fill="#000000">5</text>
+  <g stroke="#1f2a33" stroke-opacity=".35" stroke-width="2">
+    <rect x="151" y="380" width="30" height="30" rx="5" fill="#4f2a10"/>
+    <rect x="187" y="380" width="30" height="30" rx="5" fill="#874f22"/>
+    <rect x="223" y="380" width="30" height="30" rx="5" fill="#c07f3d"/>
+    <rect x="259" y="380" width="30" height="30" rx="5" fill="#7aacd0"/>
+    <rect x="295" y="380" width="30" height="30" rx="5" fill="#b3d2e6"/>
+    <rect x="331" y="380" width="30" height="30" rx="5" fill="#e9f2f8"/>
+  </g>
+</svg>

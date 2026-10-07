@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title data-t="impressum.titel">Impressum</title>
+<link rel="stylesheet" href="app.css">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="symbol.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="symbol-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Konsensieren">
+</head>
+<body>
+<noscript><p class="meldung fehler">Diese Seite und die App brauchen JavaScript. Das Impressum steht als Text in der Datei Impressum.md, die Vorlage in Impressum.example.md.</p></noscript>
+<header class="kopf">
+  <div class="innen kopf-zeile">
+    <div class="kopf-links">
+      <a class="marke" href="./#start" data-t="suite.name">Konsensieren</a>
+      <nav class="suite" aria-label="Wo abgestimmt wird" data-t-aria="suite.aria">
+        <a href="../" data-t="suite.online">Online</a>
+        <a class="aktiv" href="./#start" aria-current="true" data-t="suite.raum">Im Raum</a>
+      </nav>
+    </div>
+    <details class="menue">
+      <summary class="menue-knopf"><span class="stapel" aria-hidden="true"></span><span class="versteckt" data-t="nav.menue">Menü</span></summary>
+      <nav class="menue-liste" aria-label="Menü" data-t-aria="nav.menue">
+        <a href="anleitung.html" data-t="nav.anleitung">Anleitung</a>
+        <a href="karten.html" data-t="start.karten">Karten drucken</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="inhalt">
+<!-- Das Impressum steht in Impressum.md, wie im Werkzeug, damit es sich ohne HTML
+     anpassen laesst; fehlt die Datei, nimmt impressum.js die Vorlage
+     Impressum.example.md und rendert sie mit markdown.js. Der Service Worker haelt
+     die Vorlage im Vorrat, das Impressum, wenn es da ist; beides geht ohne Netz. -->
+<article class="schirm fliesstext markdown" id="impressum"><p class="dazu" data-t="impressum.laeuft"></p></article>
+<p class="schirm"><a class="knopf still" href="./#start" data-t="allgemein.startseite"></a></p>
+</main>
+
+<footer class="fuss">
+  <div class="innen">
+    <p><a href="../index.php/quelltext" data-t="fuss.quelltext">Quelltext</a> ·
+       <a href="impressum.html" data-t="fuss.impressum">Impressum</a> ·
+       <span id="fassung"></span></p>
+  </div>
+</footer>
+
+<script src="texte.js"></script>
+<script src="markdown.js"></script>
+<script src="rahmen.js"></script>
+<script src="impressum.js"></script>
+</body>
+</html>
