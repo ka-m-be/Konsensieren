@@ -45,6 +45,8 @@ aber ohne dass jemand hinten runterfällt.
 
 ## Im Sitzungsraum: die App
 
+(Die App ist auch live unter [ka-m-be.github.io/Konsensieren/](https://ka-m-be.github.io/Konsensieren/#start))
+
 Sitzen alle zusammen, braucht es keine Online-Abstimmung. Zum Werkzeug gehört eine App
 für den Sitzungsraum: Die Vorschläge stehen an der Tafel, alle zeigen ihre Zustimmung
 mit Karten oder Fingern, und die App auf dem Handy der Moderation zählt – nach
