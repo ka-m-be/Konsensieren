@@ -29,6 +29,8 @@ am meisten Leute leben können.
 
 (Wenn das Tool auf einem Webserver läuft, siehe [INSTALL](INSTALL.md))
 
+Eine Beispiel-Installation läuft unter [starbase-10.de/Konsens](https://starbase-10.de/Konsens/).
+
 Auf der Startseite steht ein Knopf, der eine **Beispiel-Abstimmung** anlegt: „Wohin
 fährt die Gruppe?“ – sieben erfundene Leute aus einem Verein, die sich über die
 gemeinsame Reise nicht einig sind. Kein Schaubild, sondern eine echte Abstimmung mit
@@ -93,6 +95,10 @@ verwaltende Person sieht die Teilnahmeliste und kann Einträge entfernen.
 PHP ab 7.4 (empfohlen 8.1+), eine SQLite-Datei je Abstimmung, kein Framework, keine
 Abhängigkeiten, kein Übersetzungsschritt. Das Repository ist zugleich das Upload-Paket.
 Installation siehe [INSTALL.md](INSTALL.md).
+
+Auf GitHub Pages läuft nur die App, denn Pages führt kein PHP aus. Ein Workflow
+veröffentlicht sie dort bei jedem Push auf `main`; wie, steht in
+[INSTALL.md](INSTALL.md#die-app-auf-github-pages).
 
 Das Impressum kommt aus `Impressum.md` im Hauptverzeichnis, die App hat ihr eigenes in
 `Konsens-App/Impressum.md`. Beide entstehen aus einer Vorlage (`Impressum.example.md`,

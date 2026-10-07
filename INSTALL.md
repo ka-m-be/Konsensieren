@@ -124,6 +124,27 @@ Neue Dateien über die alten legen. `config.php` und `data/` bleiben unberührt.
 Installierte Apps auf den Handys holen sich den neuen Stand von selbst, sobald sie mit
 Netz gestartet werden; zu sehen ist er ab dem nächsten Öffnen.
 
+## Die App auf GitHub Pages
+
+GitHub Pages führt kein PHP aus; das Werkzeug braucht weiter einen eigenen Webspace.
+Die App besteht dagegen nur aus statischen Dateien und lässt sich dort veröffentlichen,
+über `https` und damit auch zum Installieren auf dem Handy. Das erledigt
+`.github/workflows/pages.yml` bei jedem Push auf `main`: Es lässt
+`Konsens-App/tools/test.js` laufen und veröffentlicht `Konsens-App/` unter
+`https://<konto>.github.io/<repository>/`.
+
+Einmal einschalten: im Repository **Settings → Pages**, unter „Build and deployment“
+bei **Source** „GitHub Actions“ wählen. Ist der Workflow vorher schon gelaufen und
+deshalb gescheitert, unter **Actions** neu starten.
+
+Auf Pages steht kein Werkzeug neben der App. Deshalb schreibt der Workflow ihre Links
+beim Veröffentlichen um: „Online“ und der Artikel führen zu der Installation, die in
+der Repository-Variable `WERKZEUG_URL` steht (**Settings → Secrets and variables →
+Actions → Variables**), ohne sie zur Beispiel-Installation
+`https://starbase-10.de/Konsens/`; „Quelltext“ führt ins Repository.
+`Konsens-App/Impressum.md` steht nicht im Repository, auf Pages zeigt die App also die
+Vorlage.
+
 ## Impressum
 
 Wer dieses Werkzeug öffentlich anbietet, ist für Impressum und Datenschutzhinweis
